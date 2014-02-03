@@ -21,122 +21,10 @@
             }
         </style>
         <script src="./js/jquery-1.10.1.min.js"></script>
-        <script src="./js/iscroll.js"></script>
-        <script>
-            $(document).on('pageinit', '#home', function(){               
-                 
-                $.ajax({
-                    url: './js/champ.json' ,
-                    dataType: 'json',
-					type: 'GET',
-                    success: function (result) {
-                        champInfo.result = result;
-						$.each(result, function(i, row) {
-                        console.log(JSON.stringify(row));
-                        $('#champ-list').append('<li><a href="" data-id="' + row.id_champ + '"><h3>' + row.champ + '</h3></a></li>');
-                    }	);
-                    $('#champ-list').listview('refresh');
-                    },
-                    error: function (request,error) {
-                        alert('Network error has occurred please try again!');
-                    }
-                });   
-				$.ajax({
-                    url: './js/match.json'  ,
-                    dataType: 'json' ,
-					type: 'GET',
-                     success: function (result) {
-                        matchInfo.result = result;
-						$.each(result, function(i, row) {
-                        console.log(JSON.stringify(row));
-   					    //$('#match-list').append('<li><a href="" data-id="' + row.id_match + '"><h3>' + row.match + '</h3></a></li>');
-                    });
-					//$('#match-list').listview('refresh');
-					},
-                    error: function (request,error) {
-                        alert('Network error has occurred please try again!');
-                    }
-                });
-				$.ajax({
-                    url: './js/links.json'  ,
-                    dataType: 'json' ,
-					type: 'GET',
-                     success: function (result) {
-                        linksInfo.result = result;
-						$.each(result, function(i, row) {
-                        console.log(JSON.stringify(row));
-   					    //$('#match-list').append('<li><a href="" data-id="' + row.id_match + '"><h3>' + row.match + '</h3></a></li>');
-                    });
-					//$('#match-list').listview('refresh');
-					},
-                    error: function (request,error) {
-                        alert('Network error has occurred please try again!');
-                    }
-                });        			
-            });
- 
-            $(document).on('pagebeforeshow', '#headline', function(){     
-                $('#match-list').empty();
-                $.each(matchInfo.result, function(i, row) {
-                    if(row.id_champ == champInfo.id) {                       
-                        $('#match-list').append('<li><a href="" datachamp-id ="' + row.id_champ + '" data-id="' + row.id_match + '"><h3>' + row.match + '</h3></a></li>');                       
-						$('#match-list').listview('refresh');	
-                    }
-                }); 
-				
-            });
-			
-			$(document).on('pagebeforeshow', '#headline2', function(){     
-                $('#video-list').empty();
-                $.each(linksInfo.result, function(i, row) {
-                    if(row.id_champ == matchInfo.id_champ && row.id_match == matchInfo.id_match ) {                       
-                       $('#video-list').append('<li><a href="'+row.link+'" datachamp-id ="' + row.id_champ + '" data-id="' + row.id_match + '"><h3>' + row.link+ '</h3></a></li>');                       
-						$('#video-list').listview('refresh');	
-                    }
-                }); 
-				
-            });
- 
-            $(document).on('vclick', '#champ-list li a', function(){ 
-                champInfo.id = $(this).attr('data-id');
-                $.mobile.changePage( "#headline", { transition: "slide", changeHash: false });
-            });
-			
-			 $(document).on('vclick', '#match-list li a', function(){ 
-                matchInfo.id_champ = $(this).attr('datachamp-id');
-				matchInfo.id_match = $(this).attr('data-id');
-                $.mobile.changePage( "#headline2", { transition: "slide", changeHash: false });
-            });
- 
-            var champInfo = {
-                id : null,
-                result : null
-            }
-			
-			var matchInfo = {
-                id_champ : null,
-				id_match : null,
-                result : null
-            }
-			
-			var linksInfo = {                
-                result : null
-            }
-			
-            var ajax = { 
-                parseJSONP:function(result){ 
-                    movieInfo.result = result.results;
-                    $.each(result.results, function(i, row) {
-                        console.log(JSON.stringify(row));
-                        $('#movie-list').append('<li><a href="" data-id="' + i + '"><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185'+row.poster_path+'"/><h3>' + row.title + '</h3><p>' + row.vote_average + '/10</p></a></li>');
-                    });
-                    $('#movie-list').listview('refresh');
-                }
-            }      
-        </script>
-        
         <script src="./js/jquery.mobile-1.4.0-beta.1.min.js"></script>
+        <script src="./js/iscroll.js"></script>
         <script src="./js/jquery.mobile.iscrollview.js"></script>
+        <script src="./js/goalrewinder.js"></script>
     </head>
     <body>    
         <div data-role="page" id="home">
@@ -155,7 +43,7 @@
             <div data-theme="a" data-role="footer">
                 <h1><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr">
 					<img alt="Licence Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" />
-				</a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">GoalRewinder</span> 
+				</a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type"></span> 
 					<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr">licence Creative Commons Attribution</a>.</h1>
             </div>             
         </div>
@@ -167,9 +55,11 @@
                 </h3>
             </div>       
             <div data-role="content">
-                <ul data-role="listview"  id="match-list" data-theme="a">
+				<div class="example-wrapper" data-iscroll>
+					<ul data-role="listview"  id="match-list" data-theme="a">
                      
-                </ul>
+					</ul>
+				</div>	
             </div>
         </div>
 		<div data-role="page" id="headline2">
@@ -180,9 +70,11 @@
                 </h3>
             </div>       
             <div data-role="content">
-                <ul data-role="listview"  id="video-list" data-theme="a">
-                     
-                </ul>
+				<div class="example-wrapper" data-iscroll>
+					<ul data-role="listview"  id="video-list" data-theme="a">
+						 
+					</ul>
+				</div>	
             </div>
         </div> 	
     </body>
