@@ -4,9 +4,10 @@
         <title>GoalRewinder</title>
         <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-        <link rel="stylesheet" href="./css/jquery.mobile-1.4.0-beta.1.min.css"/>
+        <link rel="stylesheet" href="./css/jquery.mobile-1.4.0.css"/>
         <link rel="stylesheet" href="./css/jquery.mobile.iscrollview.css"/>
         <link rel="stylesheet" href="./css/jquery.mobile.iscrollview-pull.css"/>
+        <link rel="stylesheet" href="./css/jqm-demos.css"/>
         <style>
             .ui-content {
                 padding: 0 !important;
@@ -21,10 +22,11 @@
             }
         </style>
         <script src="./js/jquery-1.10.1.min.js"></script>
-        <script src="./js/jquery.mobile-1.4.0-beta.1.min.js"></script>
+        <script src="./js/jquery.mobile-1.4.0.js"></script>
         <script src="./js/iscroll.js"></script>
         <script src="./js/jquery.mobile.iscrollview.js"></script>
         <script src="./js/goalrewinder.js"></script>
+        <script src="./js/moment-with-langs.js"></script>
     </head>
     <body>    
         <div data-role="page" id="home">
@@ -48,18 +50,14 @@
             </div>             
         </div>
         <div data-role="page" id="headline">
-            <div data-theme="a" data-role="header">
+            <div data-theme="a" data-role="header" >
                 <a href="#home" class="ui-btn-left" data-transition="slide" data-direction="reverse">Back</a>                       
                 <h3>
                     Match
                 </h3>
             </div>       
-            <div data-role="content">
-				<div class="example-wrapper" data-iscroll>
-					<ul data-role="listview"  id="match-list" data-theme="a">
-                     
-					</ul>
-				</div>	
+            <div class="example-wrapper" data-role="collapsible-set" id="match" data-content-theme="a">
+				
             </div>
         </div>
 		<div data-role="page" id="headline2">
