@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GoalRewinder</title>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+         <link rel="stylesheet" href="./css/jquery.mobile-1.4.0.css"/>
+        <link rel="stylesheet" href="./css/jquery.mobile.iscrollview.css"/>
+        <link rel="stylesheet" href="./css/jquery.mobile.iscrollview-pull.css"/>
+        <link rel="stylesheet" href="./css/jqm-demos.css"/> 
+		<link rel="stylesheet" href="./css/themes/goalrewinder.css"/>
+        <link rel="stylesheet" href="./css/themes/goalrewinder.min.css"/>
+        <link rel="stylesheet" href="./css/themes/jquery.mobile.icons.min.css"/>
+		<link rel="stylesheet" href="./css/initialisation.css"/>
+		
+        <style>
+            .ui-content {
+                padding: 0 !important;
+            }
+              
+            .ui-listview {
+                margin: 0 !important;
+            }
+              
+            .example-wrapper, .example-wrapper div.iscroll-scroller {
+                width: 100% !important;
+            }
+			
+        </style>
+
+		
+        <script src="./js/jquery-1.10.1.min.js"></script>
+        <script src="./js/jquery.mobile-1.4.0.js"></script>
+        <script src="./js/iscroll.js"></script>
+        <script src="./js/jquery.mobile.iscrollview.js"></script>
+        <script src="./js/goalrewinder.js"></script>
+        <script src="./js/moment-with-langs.js"></script>
+		
+    </head>
+    <body>  
+		<div data-role="page" id="initialisation">                
+            <div class="app">
+				<h1>GoalsRewinder</h1>
+					<div id="deviceready" class="blink">
+						<p class="event listening"><a href="">Start</a></p>							
+					</div>
+			</div>
+        </div>
+        <div data-role="page" id="home">
+            <div data-theme="c" data-role="header" data-position="fixed">
+                <h3>
+                    League List
+                </h3>
+            </div>       
+            <div data-role="content">
+                <div class="example-wrapper" >
+                    <ul data-role="listview" data-filter="true" data-filter-placeholder="Search league..."  id="champ-list" data-theme="c">
+                         
+                    </ul>
+                </div>
+            </div>
+            <div data-theme="c" data-role="footer" data-position="fixed">
+			<h1><img alt="Licence Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /><br />
+					<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr">licence Creative Commons Attribution</a>.</h1>
+            </div>             
+        </div>
+        <div data-role="page" id="headline">
+            <div data-theme="c" data-role="header" data-position="fixed">
+                <a href="#home" class="ui-btn-left" data-transition="pop" data-iconpos="notext" data-icon="arrow-l" data-role="button"></a>                       
+                <h3>					
+                    Match
+                </h3>
+			    
+            </div>  
+			<div data-role="content"> 
+				<div class="example-wrapper" >
+					<div id="match"  data-role="collapsible-set"  data-theme="c" >
+						
+					</div>
+				</div>	
+			</div>	
+			<div data-theme="c" data-role="footer" data-position="fixed">
+                		<div id="champ_txt" align="center"></div>
+			</div>    
+        </div>
+		<div data-role="page" id="headline2">
+            <div data-theme="c" data-role="header" data-position="fixed">
+                <a href="#headline" class="ui-btn-left" data-transition="pop" data-iconpos="notext" data-icon="arrow-l" data-role="button"></a>                       
+				<a href="#home" class="ui-btn-right" data-transition="pop" data-iconpos="notext" data-icon="home" data-role="button"></a>                       
+                
+                <h3>
+                    Videos
+                </h3>
+            </div>       
+            <div data-role="content">
+				<div class="example-wrapper" >
+					<ul data-role="listview"  id="video-list" data-theme="c">
+						 
+					</ul>
+				</div>	
+            </div>
+			<div data-theme="c" data-role="footer" data-position="fixed">
+                		<div id="vid_txt" align="center"></div>
+			</div>   
+        </div> 	
+    </body>
+</html>   
