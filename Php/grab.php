@@ -59,12 +59,13 @@ function file_get_or_store_html($url) {
 	$url_clean = preg_replace('#[:/]#','_', $url);
 	if (file_exists($_SERVER['DOCUMENT_ROOT']."/GrabTvgolo/".$url_clean)) {
 		$dom = unserialize(file_get_contents($url_clean));				
-	}else
+	}else{
 		echo $url_clean;
 		$dom = file_get_html($url);		
-	        file_put_contents($url_clean, serialize($dom));
+	    file_put_contents($url_clean, serialize($dom));
 	}
 	return $dom;
+	
 }
 
 
