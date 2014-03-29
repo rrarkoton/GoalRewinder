@@ -8,7 +8,7 @@ $foo_2 = array();
 $foo_3 = array();
 $html = file_get_or_store_html("http://www.tvgolo.com/football.php");
 
-clearFolder('./rep_json');
+
 
 foreach ($html->find('.paises') as $pays) {
 	foreach ($pays->find('a,href') as $link_pays) {
@@ -42,6 +42,8 @@ foreach ($html->find('.paises') as $pays) {
 	}
 }
 
+clearFolder('./rep_json');
+
 file_put_contents('rep_json/champ.json', json_encode($foo_1),FILE_APPEND);
 file_put_contents('rep_json/match.json', json_encode($foo_2),FILE_APPEND);
 file_put_contents('rep_json/links.json', json_encode($foo_3),FILE_APPEND);
@@ -51,11 +53,11 @@ echo 'fini';
 
 function file_get_or_store_html($url) {
 	$url_clean = preg_replace('#[:/]#','_', $url);
-	if (file_exists($_SERVER['DOCUMENT_ROOT']."/GrabTvgolo/rep_tmp/".$url_clean)) {
-		$dom = unserialize(file_get_contents($_SERVER['DOCUMENT_ROOT']."/GrabTvgolo/rep_tmp/".$url_clean));				
+	if (file_exists(getcwd()."/rep_tmp/".$url_clean)) {
+		$dom = unserialize(file_get_contents(getcwd()."/rep_tmp/".$url_clean));				
 	}else{		
-		$dom = file_get_html($url);		
-	        file_put_contents($_SERVER['DOCUMENT_ROOT']."/GrabTvgolo/rep_tmp/".$url_clean, serialize($dom));
+		$dom = file_get_html($url);	
+	        file_put_contents(getcwd()."/rep_tmp/".$url_clean, serialize($dom));
 	}
 	return $dom;
 }
