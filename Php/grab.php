@@ -8,14 +8,14 @@ $foo_2 = array();
 $foo_3 = array();
 $html = file_get_or_store_html("http://www.tvgolo.com/football.php");
 
-
+//clearFolder('./rep_tmp');
 
 foreach ($html->find('.paises') as $pays) {
 	foreach ($pays->find('a,href') as $link_pays) {
 		$link = $link_pays->href;
 		$champ = $link_pays->plaintext;
 		$foo_1[] = array('champ' => $champ , 'id_champ' => $champ);
-		$html_vid = file_get_or_store_html($link);		
+		$html_vid = file_get_html($link);		
 		foreach ($html_vid->find('.listajogos') as $vids) {
 			foreach ($vids->find('a,href') as $link_vid) {
 				$link_video = $link_vid->href;			 	
@@ -53,11 +53,13 @@ echo 'fini';
 
 function file_get_or_store_html($url) {
 	$url_clean = preg_replace('#[:/]#','_', $url);
-	if (file_exists(getcwd()."/rep_tmp/".$url_clean)) {
-		$dom = unserialize(file_get_contents(getcwd()."/rep_tmp/".$url_clean));				
+	if (is_file($_SERVER['DOCUMENT_ROOT']."/GrabTvgolo/rep_tmp/".$url_clean)) {
+		$dom = unserialize(file_get_contents("rep_tmp/".$url_clean));	
+	        		
 	}else{		
+		echo $url."</br>";
 		$dom = file_get_html($url);	
-	        file_put_contents(getcwd()."/rep_tmp/".$url_clean, serialize($dom));
+	        file_put_contents("rep_tmp/".$url_clean, serialize($dom));
 	}
 	return $dom;
 }
