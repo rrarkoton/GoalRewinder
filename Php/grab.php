@@ -31,7 +31,8 @@ foreach ($html->find('.paises') as $pays) {
 				$html_video = file_get_or_store_html($full_link_video);
 				$i = 0;
 				foreach ($html_video->find('.contentjogos') as $links_vid_tube){					
-					//echo  "test : ".$links_vid_tube->find('script')->attr."</br>";					
+					//echo  "test : ".$links_vid_tube->find('script')->attr."</br>";
+					$x = 0;					
  					foreach ($links_vid_tube->find('script') as $real_link_vid_srcipt){
  						$data_publisher_id = $real_link_vid_srcipt->getAttribute ( 'data-publisher-id' );
  						$data_video_id = $real_link_vid_srcipt->getAttribute ( 'data-video-id' );
@@ -44,20 +45,21 @@ foreach ($html->find('.paises') as $pays) {
  						//rtmp://streaming.playwire.com/18932/mp4:video-20140402-738061.mp4
  						
  						//echo $myArray_tmp[$i][0]['src'];
- 						$rtmp = $myArray_tmp[$i]["0"]->src;
- 						$tile = $myArray_tmp[$i]["0"]->title;
- 						$poster =  $myArray_tmp[$i]["0"]->poster;
+ 						$rtmp = $myArray_tmp[$i][$x]->src;
+ 						$tile = $myArray_tmp[$i][$x]->title;
+ 						$poster =  $myArray_tmp[$i][$x]->poster;
  						//echo $rtmp;
  						
  						
  						if (strncmp($rtmp,'http://', 7) === 0){ 							
  							$rtmp = preg_replace('#http://cdn\.playwire\.com/([0-9]+)/thumb\-([-0-9]+)_0004\.png#i', 'rtmp://streaming.playwire.com/$1/mp4:video-$2.mp4', $poster);
  						}
- 						echo $match."------------".$tile."------------".$rtmp."</br>";
- 						$i++;
+ 						//echo $match."------------".$tile."------------".$rtmp."</br>";
+ 						$x++;
  						
  						//echo $myArray_tmp['title'][$match];
  					}
+ 					$i++;
 					foreach ($links_vid_tube->find('iframe,src') as $real_link_vid){
 						$link_video_src = $real_link_vid->src;
 												
@@ -76,7 +78,7 @@ foreach ($html->find('.paises') as $pays) {
 		break;
 	}
 }
-//print_r($myArray_tmp);
+print_r($myArray_tmp);
 //print_r($foo_2);
 clearFolder('./rep_json');
 file_put_contents('rep_json/champ.json', json_encode($foo_1),FILE_APPEND);
