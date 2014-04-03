@@ -51,8 +51,7 @@ foreach ($html->find('.paises') as $pays) {
  						//echo $rtmp;
  						
  						
- 						if (strncmp($rtmp,'http://', 7) === 0){
- 							
+ 						if (strncmp($rtmp,'http://', 7) === 0){ 							
  							$rtmp = preg_replace('#http://cdn\.playwire\.com/([0-9]+)/thumb\-([-0-9]+)_0004\.png#i', 'rtmp://streaming.playwire.com/$1/mp4:video-$2.mp4', $poster);
  						}
  						echo $tile." : ".$rtmp."</br>";
