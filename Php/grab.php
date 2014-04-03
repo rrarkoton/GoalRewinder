@@ -11,7 +11,7 @@ $foo_3 = array();
 $foo_3bis = array();
 $html = file_get_or_store_html("http://www.tvgolo.com/football.php");
 
-clearFolder('./rep_json');
+clearFolder('./rep_tmp');
 
 
 
@@ -29,10 +29,9 @@ foreach ($html->find('.paises') as $pays) {
 				$match = str_replace('&nbsp;',"",$match);
 				$foo_2[] = array('match' => $match , 'id_champ' => $champ , 'id_match' => $match);
 				$html_video = file_get_or_store_html($full_link_video);
-				foreach ($html_video->find('.contentjogos') as $links_vid_tube){
-					
-					//echo  "test : ".$links_vid_tube->find('script')->attr."</br>";
-					$i = 0;
+				$i = 0;
+				foreach ($html_video->find('.contentjogos') as $links_vid_tube){					
+					//echo  "test : ".$links_vid_tube->find('script')->attr."</br>";					
  					foreach ($links_vid_tube->find('script') as $real_link_vid_srcipt){
  						$data_publisher_id = $real_link_vid_srcipt->getAttribute ( 'data-publisher-id' );
  						$data_video_id = $real_link_vid_srcipt->getAttribute ( 'data-video-id' );
@@ -54,7 +53,7 @@ foreach ($html->find('.paises') as $pays) {
  						if (strncmp($rtmp,'http://', 7) === 0){ 							
  							$rtmp = preg_replace('#http://cdn\.playwire\.com/([0-9]+)/thumb\-([-0-9]+)_0004\.png#i', 'rtmp://streaming.playwire.com/$1/mp4:video-$2.mp4', $poster);
  						}
- 						echo $tile." : ".$rtmp."</br>";
+ 						echo $match."------------".$tile."------------".$rtmp."</br>";
  						$i++;
  						
  						//echo $myArray_tmp['title'][$match];
@@ -79,6 +78,7 @@ foreach ($html->find('.paises') as $pays) {
 }
 //print_r($myArray_tmp);
 //print_r($foo_2);
+clearFolder('./rep_json');
 file_put_contents('rep_json/champ.json', json_encode($foo_1),FILE_APPEND);
 file_put_contents('rep_json/match.json', json_encode($foo_2),FILE_APPEND);
 file_put_contents('rep_json/links.json', json_encode($foo_3),FILE_APPEND);
@@ -88,12 +88,13 @@ echo 'fini';
 
 function file_get_or_store_html($url) {
 	$url_clean = preg_replace('#[:/]#','_', $url);
-	if (file_exists($url_clean)) {
-		$dom = unserialize(file_get_contents($url_clean));
-	}
-	else {
-		$dom = file_get_html($url);
-		file_put_contents($url_clean, serialize($dom));
+	if (is_file($_SERVER['DOCUMENT_ROOT']."/GrabTvgolo/rep_tmp/".$url_clean)) {
+		$dom = unserialize(file_get_contents("rep_tmp/".$url_clean));	
+	        		
+	}else{		
+		//echo $url."</br>";
+		$dom = file_get_html($url);	
+	        file_put_contents("rep_tmp/".$url_clean, serialize($dom));
 	}
 	return $dom;
 }
