@@ -58,7 +58,7 @@ foreach ($html->find('.paises') as $pays) {
 							echo "Existe déja ;";
 						}						
  						$link_mp4 = "http://195.154.79.155/GrabTvgolo/rep_vid_c/".$data_publisher_id."_".$date."_".$data_video_id.".mp4";
- 						$foo_3[] = array('link' => $link_mp4,'id_champ' => $champ ,'id_match' => $match);
+ 						$foo_3[] = array('link' => $link_mp4,'id_champ' => $champ ,'id_match' => $match , 'poster' => $poster);
  						$i++; 						
  						
  					}
@@ -68,7 +68,7 @@ foreach ($html->find('.paises') as $pays) {
 						if(strncmp($link_video_src, 'http://', 7) !== 0) {
 							$link_video_src = 'http://' . $link_video_src;
 						}
-						$foo_3[] = array('link' => $link_video_src,'id_champ' => $champ ,'id_match' => $match);
+						$foo_3[] = array('link' => $link_video_src,'id_champ' => $champ ,'id_match' => $match , 'poster' => 'null');
 					}
 					
 				}
